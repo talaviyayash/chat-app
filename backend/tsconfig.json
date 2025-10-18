@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "module": "ESNext", // Use ESNext module system
+    "moduleResolution": "Node", // Resolve modules like Node.js does
+    "target": "ESNext", // Set the target to ESNext
+    "esModuleInterop": true, // Allow default imports from CommonJS modules
+    "skipLibCheck": true, // Skip type checking of declaration files
+    "strict": true, // Enable strict type checking
+    "outDir": "./dist", // Specify output directory for compiled JavaScript
+    "rootDir": "./src" // Specify the root directory for source files
+  },
+  "include": ["src/**/*"], // Include all files in the src folder
+  "exclude": ["node_modules"] // Exclude node_modules from compilation
+}
