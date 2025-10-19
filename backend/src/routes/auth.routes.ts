@@ -13,22 +13,22 @@ import {
   resendVerificationSchema,
 } from '../validators/auth.validator';
 
-const router = Router();
+const authRouter = Router();
 
-router.post('/register', validateRequest(registerSchema), registerUser);
+authRouter.post('/register', validateRequest(registerSchema), registerUser);
 
-router.post('/login', validateRequest(loginSchema), loginUser);
+authRouter.post('/login', validateRequest(loginSchema), loginUser);
 
-router.get(
+authRouter.get(
   '/verify-email/:token',
   validateRequest(verifyEmailSchema, 'params'),
   verifyEmail,
 );
 
-router.post(
+authRouter.post(
   '/resend-verification',
   validateRequest(resendVerificationSchema),
   resendVerificationEmail,
 );
 
-export default router;
+export default authRouter;

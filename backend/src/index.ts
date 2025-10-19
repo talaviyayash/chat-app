@@ -4,6 +4,8 @@ import cors from 'cors';
 import morgan from 'morgan';
 import { errorHandler } from './middlewares/errorHandler.middleware';
 import { env } from './config/envConfig';
+import './config/db';
+import authRouter from './routes/auth.routes';
 
 const corsOptions = {
   origin: true,
@@ -16,6 +18,8 @@ app.use(cors(corsOptions));
 app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms '),
 );
+
+app.use('/api/auth', authRouter);
 
 app.use(errorHandler);
 
