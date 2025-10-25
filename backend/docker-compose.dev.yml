@@ -1,32 +1,38 @@
-version: '3.9'
-
+version: '3.8'
 services:
   app:
     build:
       context: .
       target: dev
+
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
     ports:
       - '5000:5000'
     env_file:
-      - .env.development
+      - .env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     depends_on:
       - mongo
       - redis
 
   mongo:
-    image: mongo:6
+    image: mongo:latest
     ports:
       - '27017:27017'
     volumes:
-      - mongo_data:/data/db
+      - mongo-data:/data/db
 
   redis:
-    image: redis:7
+    image: redis:latest
     ports:
       - '6379:6379'
+    volumes:
+      - redis-data:/data
 
 volumes:
-  mongo_data:
+  mongo-data:
+  redis-data:
