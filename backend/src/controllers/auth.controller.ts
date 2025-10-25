@@ -82,7 +82,17 @@ export const loginUser = async (req: Request, res: Response) => {
   user.lastSeen = new Date();
   await user.save();
 
-  return sendSuccess(res, 200, 'Login successful', { user: user, token });
+  const filteredUser = {
+    _id: user._id,
+    name: user.name,
+    email: user.email,
+    profileImage: user.profileImage || '',
+  };
+
+  return sendSuccess(res, 200, 'Login successful', {
+    user: filteredUser,
+    token,
+  });
 };
 
 export const verifyEmail = async (req: Request, res: Response) => {
