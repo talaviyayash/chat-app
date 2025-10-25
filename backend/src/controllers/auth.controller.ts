@@ -8,7 +8,7 @@ import { sendEmail } from '../utils/sendEmail';
 import { env } from '../config/envConfig';
 import { verificationTemplate } from '../template/email/verification';
 
-export const registerUser = async (req: Request, res: Response) => {
+const registerUser = async (req: Request, res: Response) => {
   const { name, email, password } = req.body;
 
   const existingUser = await UserModel.findOne({ email });
@@ -60,7 +60,7 @@ export const registerUser = async (req: Request, res: Response) => {
   );
 };
 
-export const loginUser = async (req: Request, res: Response) => {
+const loginUser = async (req: Request, res: Response) => {
   const { email, password } = req.body;
 
   const user = await UserModel.findOne({ email }).select('+password');
@@ -95,7 +95,7 @@ export const loginUser = async (req: Request, res: Response) => {
   });
 };
 
-export const verifyEmail = async (req: Request, res: Response) => {
+const verifyEmail = async (req: Request, res: Response) => {
   const { token } = req.params;
 
   let userId: string | null = null;
@@ -131,7 +131,7 @@ export const verifyEmail = async (req: Request, res: Response) => {
   return sendSuccess(res, 200, 'Email verified successfully');
 };
 
-export const resendVerificationEmail = async (req: Request, res: Response) => {
+const resendVerificationEmail = async (req: Request, res: Response) => {
   const { email } = req.body;
 
   const user = await UserModel.findOne({ email });
@@ -161,3 +161,11 @@ export const resendVerificationEmail = async (req: Request, res: Response) => {
 
   return sendSuccess(res, 200, 'Verification email sent successfully');
 };
+const authController = {
+  resendVerificationEmail,
+  verifyEmail,
+  loginUser,
+  registerUser,
+};
+
+export default authController;

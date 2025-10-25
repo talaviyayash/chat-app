@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-export const registerSchema = Joi.object({
+const registerSchema = Joi.object({
   name: Joi.string().trim().min(2).max(50).required().messages({
     'string.empty': 'Name is required',
     'string.min': 'Name must be at least 2 characters long',
@@ -27,7 +27,7 @@ export const registerSchema = Joi.object({
     }),
 });
 
-export const loginSchema = Joi.object({
+const loginSchema = Joi.object({
   email: Joi.string().email().trim().lowercase().required().messages({
     'string.empty': 'Email is required',
     'string.email': 'Please provide a valid email address',
@@ -39,7 +39,7 @@ export const loginSchema = Joi.object({
   }),
 });
 
-export const resendVerificationSchema = Joi.object({
+const resendVerificationSchema = Joi.object({
   email: Joi.string().email().trim().lowercase().required().messages({
     'string.empty': 'Email is required',
     'string.email': 'Please provide a valid email address',
@@ -47,10 +47,19 @@ export const resendVerificationSchema = Joi.object({
   }),
 });
 
-export const verifyEmailSchema = Joi.object({
+const verifyEmailSchema = Joi.object({
   token: Joi.string().min(10).max(4096).required().messages({
     'string.empty': 'Verification token is required',
     'string.min': 'Invalid verification token',
     'any.required': 'Verification token is required',
   }),
 });
+
+const authValidation = {
+  verifyEmailSchema,
+  resendVerificationSchema,
+  loginSchema,
+  registerSchema,
+};
+
+export default authValidation;

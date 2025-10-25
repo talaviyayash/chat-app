@@ -1,34 +1,32 @@
 import { Router } from 'express';
-import {
-  registerUser,
-  loginUser,
-  verifyEmail,
-  resendVerificationEmail,
-} from '../controllers/auth.controller';
+import authController from '../controllers/auth.controller';
 import { validateRequest } from '../utils/validateRequest';
-import {
-  registerSchema,
-  loginSchema,
-  verifyEmailSchema,
-  resendVerificationSchema,
-} from '../validators/auth.validator';
+import authValidation from '../validators/auth.validator';
 
 const authRouter = Router();
 
-authRouter.post('/register', validateRequest(registerSchema), registerUser);
+authRouter.post(
+  '/register',
+  validateRequest(authValidation.registerSchema),
+  authController.registerUser,
+);
 
-authRouter.post('/login', validateRequest(loginSchema), loginUser);
+authRouter.post(
+  '/login',
+  validateRequest(authValidation.loginSchema),
+  authController.loginUser,
+);
 
 authRouter.get(
   '/verify-email/:token',
-  validateRequest(verifyEmailSchema, 'params'),
-  verifyEmail,
+  validateRequest(authValidation.verifyEmailSchema, 'params'),
+  authController.verifyEmail,
 );
 
 authRouter.post(
   '/resend-verification',
-  validateRequest(resendVerificationSchema),
-  resendVerificationEmail,
+  validateRequest(authValidation.resendVerificationSchema),
+  authController.resendVerificationEmail,
 );
 
 export default authRouter;
