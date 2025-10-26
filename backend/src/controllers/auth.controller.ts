@@ -135,6 +135,7 @@ const resendVerificationEmail = async (req: Request, res: Response) => {
   const { email } = req.body;
 
   const user = await UserModel.findOne({ email });
+
   if (!user) throw new AppError('User not found', 404);
 
   if (user.verification.isVerified) {
@@ -149,6 +150,7 @@ const resendVerificationEmail = async (req: Request, res: Response) => {
 
   user.verification.token = verificationJwt;
   user.verification.expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
   await user.save();
 
   const verificationUrl = `${env.FRONTEND_URL}/verify-email?token=${verificationJwt}`;
@@ -161,6 +163,7 @@ const resendVerificationEmail = async (req: Request, res: Response) => {
 
   return sendSuccess(res, 200, 'Verification email sent successfully');
 };
+
 const authController = {
   resendVerificationEmail,
   verifyEmail,

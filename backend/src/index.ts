@@ -6,15 +6,16 @@ import { errorHandler } from './middlewares/errorHandler.middleware';
 import { env } from './config/envConfig';
 import './config/db';
 import authRouter from './routes/auth.routes';
+import appConfig from './config/appConfig';
+import helmet from 'helmet';
 
-const corsOptions = {
-  origin: true,
-  credentials: true,
-};
 const app = express();
+app.use(appConfig.globalLimiter);
+app.use(helmet());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors(corsOptions));
+app.use(cors(appConfig.corsOptions));
 app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms '),
 );
