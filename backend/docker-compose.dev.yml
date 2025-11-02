@@ -41,6 +41,7 @@ services:
     container_name: kafka
     ports:
       - '9092:9092'
+      - '9093:9093'
     environment:
       - KAFKA_NODE_ID=1
       - KAFKA_PROCESS_ROLES=broker,controller
@@ -50,9 +51,8 @@ services:
       - KAFKA_CONTROLLER_LISTENER_NAMES=CONTROLLER
       - KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT
       - KAFKA_LOG_DIRS=/tmp/kraft-combined-logs
+      - CLUSTER_ID=q6E4g8BRTl2Yw5e9y3Y1Lw
       - KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1
-      - CLUSTER_ID=abcdefghijklmnopqrstuv
-
     volumes:
       - kafka-data:/var/lib/kafka/data
 
