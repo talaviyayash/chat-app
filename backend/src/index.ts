@@ -8,6 +8,7 @@ import './config/db';
 import authRouter from './routes/auth.routes';
 import appConfig from './config/appConfig';
 import helmet from 'helmet';
+import { startKafkaConsumer } from './services/kafkaConsumer';
 
 const app = express();
 app.use(appConfig.globalLimiter);
@@ -19,6 +20,8 @@ app.use(cors(appConfig.corsOptions));
 app.use(
   morgan(':method :url :status :res[content-length] - :response-time ms '),
 );
+
+startKafkaConsumer();
 
 app.use('/api/auth', authRouter);
 
